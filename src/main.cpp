@@ -8,16 +8,14 @@
 
 int main(int argc, char** argv)
 {
+  if (argc != 2) {
+    LOG_ERROR() << "Invalid parameter.";
+    LOG_ERROR() << "Usage: <program> <input-file>";
 
-  // if (argc != 2) {
-  //   LOG_ERROR() << "Invalid parameter.";
-  //   LOG_ERROR() << "Usage: <program> <input-file>";
+    return ERROR_INVALID_PARAMETER;
+  }
 
-  //   return ERROR_INVALID_PARAMETER;
-  // }
-
-  // std::ifstream in(argv[1]); //!!!
-  std::ifstream in("./input.txt"); //!!!
+  std::ifstream in(argv[1]);
 
   if (!in) {
     LOG_ERROR() << "Input file not found.";
@@ -27,10 +25,8 @@ int main(int argc, char** argv)
   task::RevenuerManager manager(in, std::cout);
 
   try {
-
     manager.process();
   } catch (const std::runtime_error& e) {
-    LOG_ERROR() << "Catched exception:";
-    LOG_ERROR() << "  " << e.what();
+    LOG_ERROR() << e.what();
   }
 }
