@@ -1,7 +1,6 @@
 #ifndef _EVENT_HPP
 #define _EVENT_HPP
 
-#include <iostream>
 #include <string>
 
 namespace task {

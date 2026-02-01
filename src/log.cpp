@@ -1,4 +1,3 @@
-#include <iomanip>
 #include <log.hpp>
 
 namespace defines_details {

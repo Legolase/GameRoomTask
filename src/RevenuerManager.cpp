@@ -1,11 +1,7 @@
 #include <RevenuerManager.hpp>
-
-#include <base_parser/BaseParser.hpp>
 #include <types/RevenuerManagerData.hpp>
 
 #include <iomanip>
-#include <log.hpp>
-#include <sstream>
 
 namespace {
 
@@ -155,20 +151,20 @@ void RevenuerManager::finalize()
 
 void RevenuerManager::processGeneratedEvent(const GeneratedEvent& event)
 {
+  prepared << formatTime(event.time) << ' ' << static_cast<int>(event.type) << ' ';
   switch (event.type) {
   case GeneratedEvent::Type::CLIENT_LEAVE: {
-    prepared << formatTime(event.time) << " 11 " << event.client_it->first << std::endl;
+    prepared << event.client_it->first << std::endl;
     removeClient(event.time, event.client_it);
     break;
   }
   case GeneratedEvent::Type::CLIENT_TAKE_TABLE: {
-    prepared << formatTime(event.time) << " 12 " << event.client_it->first << " "
-             << event.table_id + 1 << std::endl;
+    prepared << event.client_it->first << " " << event.table_id + 1 << std::endl;
     setClientToTable(event.time, event.client_it, event.table_id);
     break;
   }
   case GeneratedEvent::Type::ERROR: {
-    prepared << formatTime(event.time) << " 13 " << event.error_message << std::endl;
+    prepared << event.error_message << std::endl;
     break;
   }
   }
@@ -219,8 +215,7 @@ void RevenuerManager::processClientArrive(const InputEvent& event)
     generated_event_queue.push(GeneratedEvent{
         .time = event.time,
         .type = GeneratedEvent::Type::ERROR,
-        .error_message = "NotOpenYet"
-    });
+        .error_message = "NotOpenYet"});
     return;
   }
 
@@ -230,8 +225,7 @@ void RevenuerManager::processClientArrive(const InputEvent& event)
     generated_event_queue.push(GeneratedEvent{
         .time = event.time,
         .type = GeneratedEvent::Type::ERROR,
-        .error_message = "YouShallNotPass"
-    });
+        .error_message = "YouShallNotPass"});
     return;
   }
 
@@ -246,8 +240,7 @@ void RevenuerManager::processClientTakeTable(const InputEvent& event)
     generated_event_queue.push(GeneratedEvent{
         .time = event.time,
         .type = GeneratedEvent::Type::ERROR,
-        .error_message = "ClientUnknown"
-    });
+        .error_message = "ClientUnknown"});
     return;
   }
 
@@ -259,8 +252,7 @@ void RevenuerManager::processClientTakeTable(const InputEvent& event)
     generated_event_queue.push(GeneratedEvent{
         .time = event.time,
         .type = GeneratedEvent::Type::ERROR,
-        .error_message = "PlaceIsBusy"
-    });
+        .error_message = "PlaceIsBusy"});
     return;
   }
 
@@ -275,8 +267,7 @@ void RevenuerManager::processClientWait(const InputEvent& event)
     generated_event_queue.push(GeneratedEvent{
         .time = event.time,
         .type = GeneratedEvent::Type::ERROR,
-        .error_message = "ClientUnknown"
-    });
+        .error_message = "ClientUnknown"});
     return;
   }
 
@@ -284,15 +275,13 @@ void RevenuerManager::processClientWait(const InputEvent& event)
     generated_event_queue.push(GeneratedEvent{
         .time = event.time,
         .type = GeneratedEvent::Type::ERROR,
-        .error_message = "ICanWaitNoLonger!"
-    });
+        .error_message = "ICanWaitNoLonger!"});
     return;
   }
 
   if (client_queue.size() == table_time_busy.size()) {
     generated_event_queue.push(GeneratedEvent{
-        .time = event.time, .type = GeneratedEvent::Type::CLIENT_LEAVE, .client_it = it
-    });
+        .time = event.time, .type = GeneratedEvent::Type::CLIENT_LEAVE, .client_it = it});
     return;
   }
 
@@ -307,8 +296,7 @@ void RevenuerManager::processClientLeave(const InputEvent& event)
     generated_event_queue.push(GeneratedEvent{
         .time = event.time,
         .type = GeneratedEvent::Type::ERROR,
-        .error_message = "ClientUnknown"
-    });
+        .error_message = "ClientUnknown"});
     return;
   }
 
@@ -317,8 +305,7 @@ void RevenuerManager::processClientLeave(const InputEvent& event)
         .time = event.time,
         .type = GeneratedEvent::Type::CLIENT_TAKE_TABLE,
         .client_it = client2table.find(client_queue.front()),
-        .table_id = it->second
-    });
+        .table_id = it->second});
     client_queue.pop();
   }
 
@@ -369,8 +356,7 @@ void RevenuerManager::kickOutLeftClients()
 {
   for (auto it = client2table.begin(); it != client2table.end(); ++it) {
     generated_event_queue.push(GeneratedEvent{
-        .time = end_time, .type = GeneratedEvent::Type::CLIENT_LEAVE, .client_it = it
-    });
+        .time = end_time, .type = GeneratedEvent::Type::CLIENT_LEAVE, .client_it = it});
   }
 }
 

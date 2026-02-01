@@ -1,6 +1,5 @@
 #include <fstream>
 #include <iostream>
-// #include <gtest/gtest.h>
 
 #include <RevenuerManager.hpp>
 #include <log.hpp>
@@ -27,6 +26,6 @@ int main(int argc, char** argv)
   try {
     manager.process();
   } catch (const std::runtime_error& e) {
-    LOG_ERROR() << e.what();
+    std::cout << e.what() << '\n';
   }
 }

@@ -74,7 +74,7 @@ TEST(Base, Example)
 3 90 08:01
 )x";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, EmptyFile)
@@ -83,7 +83,7 @@ TEST(Syntax, EmptyFile)
 
   std::string output = "";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, BadTime1)
@@ -94,7 +94,7 @@ TEST(Syntax, BadTime1)
 
   std::string output = "00:00 00:0O";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, BadTime2)
@@ -105,7 +105,7 @@ TEST(Syntax, BadTime2)
 
   std::string output = "00:00";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, BadTime3)
@@ -116,7 +116,7 @@ TEST(Syntax, BadTime3)
 
   std::string output = "09:60 13:80";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, ZeroCountOfTable)
@@ -127,7 +127,7 @@ TEST(Syntax, ZeroCountOfTable)
 
   std::string output = "0";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, NonPositiveCostPerHour)
@@ -138,7 +138,7 @@ TEST(Syntax, NonPositiveCostPerHour)
 
   std::string output = "0";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, InvalidClientName)
@@ -150,7 +150,7 @@ TEST(Syntax, InvalidClientName)
 
   std::string output = "10:00 1 k%eer";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, EmptyClientName)
@@ -162,7 +162,7 @@ TEST(Syntax, EmptyClientName)
 
   std::string output = "10:00 2   ";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, EmptyTableID)
@@ -174,7 +174,7 @@ TEST(Syntax, EmptyTableID)
 
   std::string output = "10:00 2 name   ";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, OneDelimiterInHeader)
@@ -186,7 +186,7 @@ TEST(Syntax, OneDelimiterInHeader)
 
   std::string output = "09:00  21:00";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, OneDelimiterInEvent1)
@@ -198,7 +198,7 @@ TEST(Syntax, OneDelimiterInEvent1)
 
   std::string output = " 10:00 2 name 5";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, OneDelimiterInEvent2)
@@ -210,7 +210,7 @@ TEST(Syntax, OneDelimiterInEvent2)
 
   std::string output = "10:00  2 name 5";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, OneDelimiterInEvent3)
@@ -222,7 +222,7 @@ TEST(Syntax, OneDelimiterInEvent3)
 
   std::string output = "10:00 2  name 5";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, OneDelimiterInEvent4)
@@ -234,7 +234,7 @@ TEST(Syntax, OneDelimiterInEvent4)
 
   std::string output = "10:00 2 name  5";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Syntax, OneDelimiterInEvent5)
@@ -246,7 +246,7 @@ TEST(Syntax, OneDelimiterInEvent5)
 
   std::string output = "10:00 2 name 5 ";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, TableIDOutOfRange)
@@ -259,7 +259,7 @@ TEST(Logic, TableIDOutOfRange)
 
   std::string output = "10:00 2 client1 5";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, TableIDInRange)
@@ -278,7 +278,7 @@ TEST(Logic, TableIDInRange)
 1 110 11:00
 )x";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, UnorderedEvent)
@@ -291,7 +291,7 @@ TEST(Logic, UnorderedEvent)
 
   std::string output = "09:59 2 client1 1";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, InvalidEventFormatArrive)
@@ -304,7 +304,7 @@ TEST(Logic, InvalidEventFormatArrive)
 
   std::string output = "09:00 1 client1 3";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, InvalidEventFormatSitTable)
@@ -317,7 +317,7 @@ TEST(Logic, InvalidEventFormatSitTable)
 
   std::string output = "10:00 2 client";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, InvalidEventFormatWaiting)
@@ -332,7 +332,7 @@ TEST(Logic, InvalidEventFormatWaiting)
 
   std::string output = "10:05 3";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, InvalidEventFormatLeave)
@@ -348,7 +348,7 @@ TEST(Logic, InvalidEventFormatLeave)
 
   std::string output = "10:10 4 ";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, TransferTables)
@@ -381,7 +381,7 @@ TEST(Logic, TransferTables)
 3 45 02:17
 )x";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, NotOpenComputerClub)
@@ -410,7 +410,7 @@ TEST(Logic, NotOpenComputerClub)
 3 0 00:00
 )x";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, BusyPlace)
@@ -444,7 +444,7 @@ TEST(Logic, BusyPlace)
 2 80 01:01
 )x";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, ClientUnknown)
@@ -476,7 +476,7 @@ TEST(Logic, ClientUnknown)
 2 0 00:00
 )x";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, ClientWait)
@@ -527,7 +527,7 @@ TEST(Logic, ClientWait)
 2 360 08:45
 )x";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, ClientLeave)
@@ -591,7 +591,7 @@ TEST(Logic, ClientLeave)
 3 150 05:45
 )x";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(Logic, AlphabeticalOrder)
@@ -625,7 +625,7 @@ TEST(Logic, AlphabeticalOrder)
 3 0 00:00
 )x";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 TEST(SuccessTests, Example1)
@@ -651,7 +651,7 @@ TEST(SuccessTests, Example1)
 1 110 11:00
 )x";
 
-  EXPECT_EQ(output, run(input));
+  EXPECT_EQ(run(input), output);
 }
 
 int main(int argc, char** argv)

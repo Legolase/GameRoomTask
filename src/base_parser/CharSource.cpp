@@ -1,7 +1,5 @@
 #include <base_parser/CharSource.hpp>
 
-#include <log.hpp>
-
 namespace base_parser {
 
 CharSource::CharSource(std::string_view view) noexcept :
@@ -36,16 +34,16 @@ std::runtime_error CharSource::error() const noexcept
   if (pos > 0) {
     line_end = pos - 1;
   }
-  
+
   while (data[line_end] && data[line_end] != '\n') {
     ++line_end;
   }
-  
+
   if (line_end - line_begin > 0) {
     return std::runtime_error(std::string(&(data[line_begin]), line_end - line_begin));
   }
 
-  return std::runtime_error("");  
+  return std::runtime_error("");
 }
 
 } // namespace base_parser

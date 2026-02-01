@@ -3,7 +3,6 @@
 
 #include <types/InputEvent.hpp>
 
-#include <iostream>
 #include <map>
 #include <optional>
 #include <queue>

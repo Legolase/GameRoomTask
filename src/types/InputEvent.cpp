@@ -1,8 +1,6 @@
 #include <base_parser/BaseParser.hpp>
 #include <types/InputEvent.hpp>
 
-#include <log.hpp>
-
 namespace task {
 
 namespace {

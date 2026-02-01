@@ -1,11 +1,7 @@
 #ifndef _DEFINES_HPP
 #define _DEFINES_HPP
 
-#include <iomanip>
 #include <iostream>
-#include <string.h>
-#include <type_traits>
-#include <vector>
 
 namespace defines_details {
 
