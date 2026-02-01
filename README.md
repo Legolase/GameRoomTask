@@ -27,7 +27,7 @@ git submodule update --init --recursive
 ```
 ./build-tests.sh
 ```
-> All test cases are contained in `./test/test.cpp`
+> All test cases are contained in [./test/test.cpp](https://github.com/Legolase/GameRoomTask/blob/master/test/test.cpp)
 
 ### Run
 ```
