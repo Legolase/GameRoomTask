@@ -4,4 +4,4 @@ mkdir build
 cd build
 
 cmake .. -DBUILD_TEST=ON
-make
+make -j4
